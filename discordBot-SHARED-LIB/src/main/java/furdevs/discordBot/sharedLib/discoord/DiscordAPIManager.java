@@ -1,4 +1,34 @@
 package furdevs.discordBot.sharedLib.discoord;
 
-public class DiscordAPIManager {
+
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.hooks.EventListener;
+
+import javax.security.auth.login.LoginException;
+
+public class DiscordAPIManager implements EventListener {
+
+    private JDA jda;
+
+    public void startApi(String token){
+        JDABuilder builder = new JDABuilder(token);
+        try {
+            this.jda = builder.build();
+            this.jda.addEventListener(this);
+        } catch (LoginException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onEvent(Event event) {
+        if (event instanceof MessageReceivedEvent){
+            MessageReceivedEvent mre = (MessageReceivedEvent) event;
+
+        }
+    }
 }
