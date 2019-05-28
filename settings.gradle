@@ -1,4 +1,5 @@
 rootProject.name = 'discordBot'
 include 'discordBot-CORE'
 include 'discordBot-SHARED-LIB'
+include 'discordBot-MODULE'
 

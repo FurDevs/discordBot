@@ -9,9 +9,19 @@ import net.dv8tion.jda.core.hooks.EventListener;
 
 import javax.security.auth.login.LoginException;
 
-public class DiscordAPIManager implements EventListener {
+public class DiscordAPIConnector implements EventListener {
 
     private JDA jda;
+    private String apiToken;
+
+    public DiscordAPIConnector() {
+
+    }
+
+    public DiscordAPIConnector(String apiToken) {
+        this.apiToken = apiToken;
+    }
+
 
     public void startApi(String token){
         JDABuilder builder = new JDABuilder(token);
