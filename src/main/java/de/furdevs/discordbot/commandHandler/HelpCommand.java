@@ -10,6 +10,6 @@ public class HelpCommand implements IDCCommandListener {
 
     @Override
     public void onDCMessage(MessageReceivedEvent event) {
-
+        event.getChannel().sendMessage("This is Help").complete();
     }
 }

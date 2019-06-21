@@ -46,11 +46,16 @@ public class CommandEventHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        new Thread(() -> {
-
             LOG.info("New Message from: " + event.getAuthor().getName() + " : " + event.getMessage().getContentDisplay());
+            var msg = event.getMessage().getContentDisplay();
+            if (msg.startsWith(this.commandPrefix)){
+               var trimed = msg.substring(1);
+               var handler = commandHandler.get(trimed);
+               if (handler != null){
+                    handler.onDCMessage(event);
+               }
+            }
 
-        }).run();
     }
 
     @Override
