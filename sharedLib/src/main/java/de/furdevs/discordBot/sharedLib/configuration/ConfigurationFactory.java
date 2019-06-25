@@ -1,8 +1,8 @@
-package de.furdevs.discordbot.configuration;
+package de.furdevs.discordBot.sharedLib.configuration;
 
 import java.io.IOException;
 
-public class ConfigurationManagerFactory {
+public class ConfigurationFactory {
 
 
     /**
@@ -12,7 +12,7 @@ public class ConfigurationManagerFactory {
      *
      * @return
      */
-    public ConfigurationManager loadConfiguration(){
+    public Configuration loadConfiguration(){
         return this.loadConfiguration("application.json");
     }
 
@@ -22,9 +22,9 @@ public class ConfigurationManagerFactory {
      * @param path The path of the configuration file.
      * @return
      */
-    public ConfigurationManager loadConfiguration(String path){
+    public Configuration loadConfiguration(String path){
         try {
-            return new ConfigurationManager(path);
+            return new Configuration(path);
         } catch (IOException e) {
             e.printStackTrace();
         }

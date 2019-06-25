@@ -1,4 +1,4 @@
-package de.furdevs.discordbot.configuration.model;
+package de.furdevs.discordBot.sharedLib.configuration.model;
 
 public class Application {
 

@@ -1,20 +1,22 @@
-package de.furdevs.discordbot.discord;
+package de.furdevs.discordBot.sharedLib.discord;
 
-import de.furdevs.discordbot.configuration.model.Command;
+import de.furdevs.discordBot.sharedLib.configuration.model.Command;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
-public class CommandEventHandler extends ListenerAdapter {
+public class  CommandEventHandler extends ListenerAdapter {
 
-    Logger LOG = Logger.getLogger(getClass().getName());
+    final static Logger LOG = LogManager.getLogger(CommandEventHandler.class);
+
 
     private Map<String, IDCCommandListener> commandHandler = new HashMap<>();
     private String commandPrefix;
@@ -27,12 +29,14 @@ public class CommandEventHandler extends ListenerAdapter {
         for (Command command : handler) {
             try {
                 Class loaded = Class.forName(command.getHandler());
-                if (IDCCommandListener.class.isAssignableFrom(loaded)){
+                if (IDCCommandListener.class.isAssignableFrom(loaded)) {
+                    LOG.info("Commandmodule: " + command.getHandler() + " loaded for command: " + command.getName());
                     commandHandler.put(command.getName(), (IDCCommandListener) loaded.getDeclaredConstructor().newInstance());
                 } else {
 
                 }
             } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                LOG.error(e);
                 e.printStackTrace();
             }
         }
@@ -46,15 +50,15 @@ public class CommandEventHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-            LOG.info("New Message from: " + event.getAuthor().getName() + " : " + event.getMessage().getContentDisplay());
-            var msg = event.getMessage().getContentDisplay();
-            if (msg.startsWith(this.commandPrefix)){
-               var trimed = msg.substring(1);
-               var handler = commandHandler.get(trimed);
-               if (handler != null){
-                    handler.onDCMessage(event);
-               }
+        LOG.info("New Message from: " + event.getAuthor().getName() + " : " + event.getMessage().getContentDisplay());
+        var msg = event.getMessage().getContentDisplay();
+        if (msg.startsWith(this.commandPrefix)) {
+            var trimed = msg.substring(1);
+            var handler = commandHandler.get(trimed);
+            if (handler != null) {
+                handler.onDCMessage(event);
             }
+        }
 
     }
 

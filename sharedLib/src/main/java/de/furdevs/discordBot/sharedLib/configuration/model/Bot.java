@@ -1,22 +1,25 @@
-package de.furdevs.discordbot.configuration.model;
+package de.furdevs.discordBot.sharedLib.configuration.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Bot {
 
-    @JsonProperty("name")
+    @SerializedName("name")
     private String name;
 
-    @JsonProperty("token")
+    @SerializedName("token")
     private String token;
 
-    @JsonProperty("commandPrefix")
+    @SerializedName("commandPrefix")
     private String commandPrefix;
 
-    @JsonProperty("commands")
+    @SerializedName("commands")
     private List<Command> commands;
+
+    @SerializedName("description")
+    private StringBuilder description;
 
     public String getName() {
         return name;
@@ -48,5 +51,13 @@ public class Bot {
 
     public void setCommands(List<Command> commands) {
         this.commands = commands;
+    }
+
+    public StringBuilder getDescription() {
+        return description;
+    }
+
+    public void setDescription(StringBuilder description) {
+        this.description = description;
     }
 }

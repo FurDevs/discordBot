@@ -1,4 +1,4 @@
-package de.furdevs.discordbot.configuration.model;
+package de.furdevs.discordBot.sharedLib.configuration.model;
 
 public class Command {
 
@@ -7,6 +7,11 @@ public class Command {
 
     public String getName() {
         return name;
+    }
+
+    public Command(String name, String handler) {
+        this.name = name;
+        this.handler = handler;
     }
 
     public void setName(String name) {

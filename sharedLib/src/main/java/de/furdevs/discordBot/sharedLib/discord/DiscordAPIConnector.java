@@ -1,7 +1,7 @@
-package de.furdevs.discordbot.discord;
+package de.furdevs.discordBot.sharedLib.discord;
 
 
-import de.furdevs.discordbot.configuration.model.Bot;
+import de.furdevs.discordBot.sharedLib.configuration.model.Bot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 

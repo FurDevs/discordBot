@@ -1,17 +1,17 @@
-package de.furdevs.discordbot.configuration;
+package de.furdevs.discordBot.sharedLib.configuration;
 
 import com.google.gson.Gson;
-import de.furdevs.discordbot.configuration.model.Application;
+import de.furdevs.discordBot.sharedLib.configuration.model.Application;
 
 import java.io.*;
 
-public class ConfigurationManager {
+public class Configuration {
 
 
     private InputStream _configurationFileInputStream;
     private Application app;
 
-    protected ConfigurationManager(String resourcePath) throws IOException {
+    protected Configuration(String resourcePath) throws IOException {
 
         FileReader fr = new FileReader(new File(getClass().getClassLoader().getResource(resourcePath).getFile()));
         BufferedReader br = new BufferedReader(fr);

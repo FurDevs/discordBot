@@ -1,26 +1,44 @@
 package de.furdevs.discordbot;
 
-import de.furdevs.discordbot.configuration.ConfigurationManagerFactory;
-import de.furdevs.discordbot.configuration.model.Application;
-import de.furdevs.discordbot.configuration.model.Bot;
-import de.furdevs.discordbot.discord.DiscordAPIConnector;
+import de.furdevs.discordBot.sharedLib.configuration.ConfigurationFactory;
+import de.furdevs.discordBot.sharedLib.configuration.model.Application;
+import de.furdevs.discordBot.sharedLib.configuration.model.Bot;
+import de.furdevs.discordBot.sharedLib.configuration.model.Command;
+import de.furdevs.discordBot.sharedLib.discord.DiscordAPIConnector;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class ApplicationRunner {
 
 
-    Logger LOG = Logger.getLogger(getClass().getName());
+    Logger LOG = LogManager.getLogger(getClass().getName());
 
-    public void startApplication(String[] args){
+
+    private Bot loadCoreCommands(Bot bot) {
+        if (bot.getCommands() == null) {
+            bot.setCommands(new ArrayList<>());
+        }
+        bot.getCommands().add(new Command("help", "de.furdevs.discordbot.commandHandler.HelpCommand"));
+        return bot;
+    }
+
+    public void startApplication(String[] args) {
         try {
-            ConfigurationManagerFactory f = new ConfigurationManagerFactory();
+            ConfigurationFactory f = new ConfigurationFactory();
             Application a = f.loadConfiguration().getApp();
-
-            for (Bot b : a.getDiscord().getBots()) {
-                DiscordAPIConnector api = new DiscordAPIConnector(b);
-                LOG.info("Bot Module: "+ b.getName()+" started");
+            loadCoreCommands(a.getDiscord().getCoreBot());
+            DiscordAPIConnector coreApi = new DiscordAPIConnector(a.getDiscord().getCoreBot());
+            LOG.info("Core Bot loaded");
+            if (a.getDiscord().getBots() != null) {
+                for (Bot b : a.getDiscord().getBots()) {
+                    DiscordAPIConnector api = new DiscordAPIConnector(b);
+                    LOG.info("Bot Module: " + b.getName() + " started");
+                }
+            } else {
+                LOG.warn("No Module Loaded");
             }
         } catch (LoginException e) {
             e.printStackTrace();
