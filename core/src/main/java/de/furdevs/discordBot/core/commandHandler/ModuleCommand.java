@@ -1,4 +1,4 @@
-package de.furdevs.discordbot.commandHandler;
+package de.furdevs.discordBot.core.commandHandler;
 
 import de.furdevs.discordBot.sharedLib.configuration.Configuration;
 import de.furdevs.discordBot.sharedLib.configuration.ConfigurationFactory;

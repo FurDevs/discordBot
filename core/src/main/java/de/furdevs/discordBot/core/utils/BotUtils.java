@@ -1,4 +1,4 @@
-package de.furdevs.discordbot.utils;
+package de.furdevs.discordBot.core.utils;
 
 import de.furdevs.discordBot.sharedLib.configuration.Configuration;
 import de.furdevs.discordBot.sharedLib.configuration.ConfigurationFactory;

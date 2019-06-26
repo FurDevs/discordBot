@@ -2,5 +2,8 @@ rootProject.name = 'discordBot'
 
 include 'sharedLib'
 project(':sharedLib').projectDir = new File("./sharedLib")
+
+
 include 'core'
+project(':core').projectDir = new File("./core")
 

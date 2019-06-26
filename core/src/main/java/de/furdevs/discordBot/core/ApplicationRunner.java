@@ -1,4 +1,4 @@
-package de.furdevs.discordbot;
+package de.furdevs.discordBot.core;
 
 import de.furdevs.discordBot.sharedLib.configuration.ConfigurationFactory;
 import de.furdevs.discordBot.sharedLib.configuration.model.Application;
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class ApplicationRunner {
 
 
+    private final String HELP_COMMAND_PATH = "de.furdevs.discordBot.core.commandHandler.HelpCommand";
+
     Logger LOG = LogManager.getLogger(getClass().getName());
 
 
@@ -21,7 +23,7 @@ public class ApplicationRunner {
         if (bot.getCommands() == null) {
             bot.setCommands(new ArrayList<>());
         }
-        bot.getCommands().add(new Command("help", "de.furdevs.discordbot.commandHandler.HelpCommand"));
+        bot.getCommands().add(new Command("help", HELP_COMMAND_PATH));
         return bot;
     }
 

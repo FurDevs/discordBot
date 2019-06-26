@@ -10,8 +10,13 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    implementation project(":sharedLib")
+
+    implementation 'net.dv8tion:JDA:4.ALPHA.0_108'
 }
